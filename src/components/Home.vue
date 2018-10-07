@@ -9,7 +9,7 @@
         </div>
         <template v-for="item in $router.options.routes">
             <!-- 左边导航栏 -->
-                <Submenu :name="item.name" :key="item.id">
+                <Submenu :name="item.name" :key="item.id" v-if="!item.leaf">
                      <template slot="title">
                         <Icon :type="item.icon" :size="iconSize"></Icon>
                         <span class="layout-text" >{{item.name}}</span>
@@ -23,7 +23,7 @@
      </Menu>
      </i-col>
         <!-- 右边内容 -->
-     <i-col :span="spanRight">
+     <i-col :span="spanRight" class="right" style="background:#fff;padding:15px;">
          <div class="layout-header">
              <!-- menu -->
                     <i-button type="text" @click="toggleClick">

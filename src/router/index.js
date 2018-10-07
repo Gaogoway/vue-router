@@ -8,12 +8,7 @@ import newStart from "../components/guanli/newStart.vue"
 import fenxi from "../components/guanli/fenxi.vue"
 import Login from "../components/Login.vue"
 
-let routes = [{
-    path: '/login',
-    component: Login,
-    name: '',
-    hidden: true
-},
+let routes = [
     {
       path: '/',
       component: Home,
@@ -23,7 +18,7 @@ let routes = [{
           { path: '/test', component: test, name: '文章管理' },
           { path: '/tests', component: tests, name: '评论管理' }
       ],
-      redirect:"/test"//默认跳转页面
+      redirect:"/login"//默认跳转登录页面
   },
   {
     path: '/',
@@ -44,6 +39,12 @@ let routes = [{
       { path: '/newstart', component: newStart, name: '新增和启动' },
       { path: '/fenxi', component: fenxi, name: '活跃分析' }
   ]
+},
+{
+    path: '/login',
+    component: Login,
+    name: 'main',
+    leaf: true
 }
   ]
   export default routes;
