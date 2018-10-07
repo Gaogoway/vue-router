@@ -6,8 +6,15 @@ import addUser from "../components/guanli/addUser.vue"
 import hotUser from "../components/guanli/hotUser.vue"
 import newStart from "../components/guanli/newStart.vue"
 import fenxi from "../components/guanli/fenxi.vue"
+import Login from "../components/Login.vue"
 
 let routes = [{
+    path: '/login',
+    component: Login,
+    name: '',
+    hidden: true
+},
+    {
       path: '/',
       component: Home,
       name: '内容管理',
@@ -15,7 +22,8 @@ let routes = [{
       children: [
           { path: '/test', component: test, name: '文章管理' },
           { path: '/tests', component: tests, name: '评论管理' }
-      ]
+      ],
+      redirect:"/test"//默认跳转页面
   },
   {
     path: '/',

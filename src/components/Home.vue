@@ -1,7 +1,8 @@
+
 <template>
     <div class="box"  :class="{'layout-hide-text': spanLeft < 5}">
        <i-col :span="spanLeft" class="layout-menu-left">
-        <Menu theme="dark" class="navList" accordion :span="spanLeft">
+        <Menu theme="dark" class="navList" accordion>
         <!-- 左边内容 -->
         <div class="layout-logo-left">
                 <span class="layout-text"> Admin 管理系统</span>
@@ -13,7 +14,7 @@
                         <Icon :type="item.icon" :size="iconSize"></Icon>
                         <span class="layout-text" >{{item.name}}</span>
                     </template>
-                    <template v-for="(child,childIndex) in item.children" v-if="!child.hidden">
+                    <template v-for="child in item.children" v-if="!child.hidden">
                         <Menu-item :name="child.path" :key="child.id" ><router-link :to="child.path">{{child.name}}</router-link></Menu-item>
                     </template>
                 </Submenu>
@@ -24,9 +25,28 @@
         <!-- 右边内容 -->
      <i-col :span="spanRight">
          <div class="layout-header">
+             <!-- menu -->
                     <i-button type="text" @click="toggleClick">
                         <Icon type="md-menu"  size="32"/>
                     </i-button>
+            <!-- header -->
+                    <Dropdown placement="bottom-end">
+                        <span class="head-img">
+                           文垭程
+                            <img src="">
+                        </span>
+                        <Dropdown-menu slot="list">
+                            <Dropdown-item>修改密码</Dropdown-item>
+                            <Dropdown-item>退出</Dropdown-item>
+                        </Dropdown-menu>
+                    </Dropdown>
+                </div>
+                <!-- 应用中心 -->
+                <div class="layout-breadcrumb">
+                    <Breadcrumb>
+                        <Breadcrumb-item >应用中心</Breadcrumb-item>
+                        <Breadcrumb-item>表单</Breadcrumb-item>
+                    </Breadcrumb>
                 </div>
                 <!-- 中间内容 -->
                 <div class="layout-content">
@@ -46,6 +66,7 @@
             return {
                 spanLeft: 5,
                 spanRight: 19,
+                width:500
             }
         },
         computed: {
@@ -81,21 +102,19 @@
         border-radius: 4px;
          height: 80%;
     }
-    .layout-content-main{
-        
-    }
     }
     .layout-menu-left{
         background: #515a6e;
         height: 100%;
         position: relative;
+        overflow: hidden;
        
         .navList{
             position: absolute;
             top: 20px;
             background: #515a6e;
-            width: auto !important;
-
+            width: 257px !important;
+            
             a{
                 color:#fff !important
             }
@@ -110,5 +129,14 @@
     }
     .layout-hide-text .layout-text{
         display: none;
+    }
+    .layout-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .layout-breadcrumb{
+        height: 35px;
+        line-height: 35px;
     }
 </style>
