@@ -1,6 +1,9 @@
 <template>
     <div>
-        <Table :context="self" border :columns="columns7" :data="data6"></Table>
+        <Table :context="self" ref="selection" border :columns="columns7" :data="data6"></Table>
+            <Button @click="handleSelectAll(true)">全选</Button>
+            <Button @click="handleSelectAll(false)">取消</Button>
+            <Button>批量删除</Button>
         <div class="page">
             <Page :total="total" :current="page" @on-change="changePage"  show-total/>
         </div>
@@ -17,6 +20,11 @@ import axios from "axios"
                 //模拟数据
                 data6: [],
                 columns7: [
+                    {
+                        type: 'selection',
+                        width: 60,
+                        align: 'center'
+                    },
                     {
                         title: '姓名',
                         key: 'name',
@@ -71,6 +79,7 @@ import axios from "axios"
                                     },
                                     on: {
                                         click: () => {
+                                            //删除下标
                                             this.remove(params.index)
                                         }
                                     }
@@ -118,6 +127,9 @@ import axios from "axios"
                 this.page = row;
                 this.getPage();
             },
+            handleSelectAll (status) {
+                this.$refs.selection.selectAll(status);
+            }
         },
         mounted(){
             this.getPage()

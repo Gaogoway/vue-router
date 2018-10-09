@@ -1,6 +1,10 @@
 <template>
-    <div class="newStart">
-            新增与启动
+    <div class="newStart" style="height:100%">
+        <div class="editCOn">
+            <quill-editor  @blur="onEditorBlur($event)" >
+
+            </quill-editor>
+        </div>
     </div>
     
    
@@ -13,7 +17,14 @@
             return{
 
             }
-        }
+        },
+        methods:{
+            //富文本
+            onEditorBlur:function (e) {
+                console.log('editor change!', e);
+                console.log(e.container.innerHTML);//一大推东西，你也可以输出e，看看里面的结构
+                }
+            }
     }
 </script>
 
