@@ -113,7 +113,7 @@
             position: absolute;
             top: 20px;
             background: #515a6e;
-            width: 257px !important;
+            width: 400px !important;
             
             a{
                 color:#fff !important

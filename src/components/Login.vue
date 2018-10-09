@@ -1,4 +1,3 @@
-
 <template>
     <i-form ref="formLogin" :model="formLogin" :rules="formLoginRules"  class="card-box">
     <Form-item class="formLogin-title">
@@ -57,7 +56,7 @@
                 this.$refs[name].validate((valid) => {
                     sessionStorage.setItem('user', JSON.stringify(this.formLogin.username));
                     if (valid) {
-                        this.$Message.success('提交成功!');
+                        this.$Message.success('登录成功!');
                         this.$router.push({ path: '/test' });
                     } else {
                         this.$Message.error('表单验证失败!');
