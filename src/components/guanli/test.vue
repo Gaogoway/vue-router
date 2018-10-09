@@ -2,7 +2,7 @@
     <div>
         <Table :context="self" border :columns="columns7" :data="data6"></Table>
         <div class="page">
-            <Page :total="total" :current="page" @on-change="changePage" show-total/>
+            <Page :total="total" :current="page" @on-change="changePage"  show-total/>
         </div>
     </div>
 </template>
@@ -100,14 +100,13 @@ import axios from "axios"
                 this.$Loading.start();
                 axios.get('http://rap2api.taobao.org/app/mock/86926/api/v1/getPage',{
                     params : {
-						para
+                        para,
 					}
                 })
                 .then(res=>{
-                    console.log(res.data.total)
                     //table顶部显示进度条
                     this.$Loading.finish();
-                    //显示总共80条数据
+                    //显示总共条数据
                     this.total = res.data.total;
                     //将数据传到table里面，页面显示
                     this.data6=res.data.data
@@ -118,7 +117,7 @@ import axios from "axios"
                 console.log(row);
                 this.page = row;
                 this.getPage();
-            }
+            },
         },
         mounted(){
             this.getPage()

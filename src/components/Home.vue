@@ -32,12 +32,12 @@
             <!-- header -->
                     <Dropdown placement="bottom-end">
                         <span class="head-img">
-                           文垭程
-                            <img src="">
+                           {{curUserName}}
+                            <img src="../assets/touxiang.jpg" style="width:50px;height:50px;margin-top:10px">
                         </span>
                         <Dropdown-menu slot="list">
                             <Dropdown-item>修改密码</Dropdown-item>
-                            <Dropdown-item>退出</Dropdown-item>
+                            <Dropdown-item @click.native="logout()">退出</Dropdown-item>
                         </Dropdown-menu>
                     </Dropdown>
                 </div>
@@ -45,7 +45,7 @@
                 <div class="layout-breadcrumb">
                     <Breadcrumb>
                         <Breadcrumb-item >应用中心</Breadcrumb-item>
-                        <Breadcrumb-item>表单</Breadcrumb-item>
+                        <Breadcrumb-item>{{$route.name}}</Breadcrumb-item>
                     </Breadcrumb>
                 </div>
                 <!-- 中间内容 -->
@@ -65,6 +65,8 @@
         data () {
             return {
                 spanLeft: 5,
+                //用户登录输入的名字
+                curUserName : sessionStorage.getItem('user').replace(/\"/g, ""),
                 spanRight: 19,
                 width:500
             }
@@ -83,6 +85,10 @@
                     this.spanLeft = 5;
                     this.spanRight = 19;
                 }
+            },
+            //点击退出登录
+            logout() {
+                this.$router.push('/login');
             }
           
         }
