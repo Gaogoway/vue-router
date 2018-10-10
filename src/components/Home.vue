@@ -27,7 +27,7 @@
          <div class="layout-header">
              <!-- menu -->
                     <i-button type="text" @click="toggleClick">
-                        <Icon type="md-menu"  size="32"/>
+                        <Icon type="md-menu"  size="25"/>
                     </i-button>
             <!-- header -->
                     <Dropdown placement="bottom-end">
@@ -36,7 +36,7 @@
                             <img src="../assets/touxiang.jpg" style="width:50px;height:50px;margin-top:10px">
                         </span>
                         <Dropdown-menu slot="list">
-                            <Dropdown-item>修改密码</Dropdown-item>
+                            <Dropdown-item @click.native="modifyPassWord()">修改密码</Dropdown-item>
                             <Dropdown-item @click.native="logout()">退出</Dropdown-item>
                         </Dropdown-menu>
                     </Dropdown>
@@ -55,6 +55,21 @@
                      </div>
                 </div>
             </i-col>
+            
+            <!-- 修改密码模态框 -->
+            <Modal v-model="modal1" title="修改密码" @on-ok="comfirmModifyPS"  @on-cancel="cancel" >
+            <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
+                <Form-item label="原密码" prop="oldPassword">
+                    <Input v-model="formValidate.oldPassword" placeholder="请输入原始密码"></Input>
+                </Form-item>
+                <Form-item label="新密码" prop="newPassword">
+                    <Input v-model="formValidate.newPassword" placeholder="请输入新密码"></Input>
+                </Form-item>
+                 <Form-item label="确认新密码" prop="resetPassword">
+                    <Input v-model="formValidate.resetPassword" placeholder="请再次输入新密码"></Input>
+                </Form-item>
+            </Form>
+        </Modal>
     </div> 
        
 </template>
@@ -68,7 +83,24 @@
                 //用户登录输入的名字
                 curUserName : sessionStorage.getItem('user').replace(/\"/g, ""),
                 spanRight: 19,
-                width:500
+                width:500,
+                modal1: false,
+                formValidate: {
+                    oldPassword: '',
+                    newPassword: '',
+                    resetPassword:''
+                },
+                ruleValidate: {
+                    oldPassword: [
+                        { required: true, message: '密码不能为空', trigger: 'blur' }
+                    ],
+                    newPassword: [
+                        { required: true, message: '密码不能为空', trigger: 'blur' }
+                    ],
+                    resetPassword: [
+                        { required: true, message: '密码不能为空', trigger: 'blur' }
+                    ],
+                }
             }
         },
         computed: {
@@ -85,6 +117,28 @@
                     this.spanLeft = 5;
                     this.spanRight = 19;
                 }
+            },
+             modifyPassWord() {
+                this.modal1 = true;    
+            },
+            comfirmModifyPS() {
+                this.$refs.formValidate.validate((valid) => {
+                    if (this.formValidate.newPassword === this.formValidate.resetPassword && this.formValidate.newPassword !== '' || this.formValidate.resetPassword !== '') {
+                         this.modal1 = false;
+                //         this.loading = false;
+                            this.$Message.success('修改成功!');
+                        
+                        
+                    } else {
+                        this.$Message.error('修改失败!');
+                        return false;
+                    }
+                })    
+               // this.$Message.info('点击了确定');
+            },
+            cancel(){
+                this.modal1 = false;    
+                this.$Message.info('点击了取消');
             },
             //点击退出登录
             logout() {

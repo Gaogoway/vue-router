@@ -1,9 +1,9 @@
 <template>
     <div>
-        <Table :context="self" ref="selection" border :columns="columns7" :data="data6"></Table>
+        <Table :context="self" ref="selection" border :columns="columns7" :data="data6" @on-select="checkIfon"></Table>
             <Button @click="handleSelectAll(true)">全选</Button>
             <Button @click="handleSelectAll(false)">取消</Button>
-            <Button>批量删除</Button>
+            <Button @click="del()">批量删除</Button>
         <div class="page">
             <Page :total="total" :current="page" @on-change="changePage"  show-total/>
         </div>
@@ -19,6 +19,7 @@ import axios from "axios"
                 page:1,
                 //模拟数据
                 data6: [],
+                state:[],
                 columns7: [
                     {
                         type: 'selection',
@@ -81,6 +82,8 @@ import axios from "axios"
                                         click: () => {
                                             //删除下标
                                             this.remove(params.index)
+                                          localStorage.setItem('table',JSON.stringify(this.data6))
+                                           
                                         }
                                     }
                                 }, '删除')
@@ -118,17 +121,31 @@ import axios from "axios"
                     //显示总共条数据
                     this.total = res.data.total;
                     //将数据传到table里面，页面显示
-                    this.data6=res.data.data
+                    this.data6=res.data.data;
                 })
             },
             changePage (row) {
-                // 这里直接更改了模拟的数据，真实使用场景应该从服务端获取数据
+                // 显示分页页数
                 console.log(row);
                 this.page = row;
                 this.getPage();
             },
             handleSelectAll (status) {
                 this.$refs.selection.selectAll(status);
+            },
+            //获取checkbox选取的数据
+            checkIfon(selection,row){
+                this.state=selection
+                
+            },
+            del(){
+                console.log(this.state)
+                for(var i=0;i<this.state.length;i++){
+                    if(this.state[i].selection){
+                        this.state.splice(i,1)
+                        i--
+                    }
+                }
             }
         },
         mounted(){

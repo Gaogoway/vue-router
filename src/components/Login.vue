@@ -71,6 +71,7 @@
                 })
             },
             formLoginReset(name){
+                //重置用户名和密码
                 this.$refs[name].resetFields();
             }
         },

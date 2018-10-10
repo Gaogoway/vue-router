@@ -36,8 +36,8 @@ let routes = [
   name: '统计分析',
   icon: 'ios-stats',
   children: [
-      { path: '/newstart', component: newStart, name: '新增和启动' },
-      { path: '/fenxi', component: fenxi, name: '活跃分析' }
+      { path: '/newstart', component: newStart, name: '富文本' },
+      { path: '/fenxi', component: fenxi, name: 'ECharts' }
   ]
 },
 {
