@@ -12,11 +12,11 @@ let routes = [
     {
       path: '/',
       component: Home,
-      name: '内容管理',
+      name: '表格选项',
       icon: 'ios-paper',
       children: [
-          { path: '/test', component: test, name: '文章管理' },
-          { path: '/tests', component: tests, name: '评论管理' }
+          { path: '/test', component: test, name: '表格' },
+          { path: '/tests', component: tests, name: '表单' }
       ],
       redirect:"/login"//默认跳转登录页面
   },
